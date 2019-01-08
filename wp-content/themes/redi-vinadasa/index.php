@@ -100,27 +100,14 @@
 		</div>
 	</div>
 	<?php 
-	$source_id=get_field('hp_tax_ruou_dac_san_vung_mien','option'); 
-	$id=$source_id[0];
-	$term_data=get_term_by( 'id',$id, 'za_category' );		
-	$term_link=get_term_link( $term_data, 'za_category' );
-	$args = array(
-		'post_type' => 'zaproduct',
-		'orderby' => 'id',
-		'order'   => 'DESC',  	
-		'posts_per_page' => 3,
-		'tax_query' => array(
-			array(
-				'taxonomy' => 'za_category',
-				'field'    => 'id',
-				'terms'    => $source_id,
-			)
-		),
-	);
-	$the_query = new WP_Query( $args );			
-	if($the_query->have_posts()){
+	$source_category=get_field('hp_category_rpt','option');
+	$k=0;
+	foreach ($source_category as $key => $value) {
+		$category_id=$value['hp_category_id'];		
+		$term_data=get_term_by( 'id',$category_id, 'za_category' );		
+		$term_link=get_term_link( $term_data, 'za_category' );
 		?>
-		<div class="box_featured_product">
+		<div class="box_featured_product_v<?php echo @$k; ?>">
 			<div class="box_hp_product_wrapper_title">
 				<div class="box_hp_product_title">
 					<div>
@@ -129,347 +116,72 @@
 						</h2>
 					</div>			
 				</div>
-			</div>	
-			<div class="clr"></div>	
-			<div class="bx_product">
-				<div class="container">
-					<div class="row">	
-						<?php 
-						while ($the_query->have_posts()) {
-							$the_query->the_post();
-							$post_id=$the_query->post->ID;                                                       
-							$permalink=get_the_permalink($post_id);					
-							$title=get_the_title($post_id);							
-							$featured_img=get_the_post_thumbnail_url($post_id, 'full'); 
-							?>
-							<div class="col-sm-4">
-								<div class="bx_pr_item">
-									<h3 class="bx_pr_item_title"><a href="<?php echo $permalink; ?>" title="<?php echo $title; ?>"><?php echo $title; ?></a></h3>
-									<div class="bx_pr_item_img">										
-										<a href="<?php echo $permalink; ?>">
-											<figure>
-												<div style="background-image: url(<?php echo @$featured_img; ?>);background-repeat: no-repeat;background-size: cover;padding-top: calc(100% / (200 / 200))"></div>
-											</figure>						
-										</a>	
-									</div>
-									<div class="bx_pr_item_detail">
-										<a href="<?php echo $permalink; ?>">Chi tiết</a>
+			</div>				
+			<div class="clr"></div>
+			<?php 
+			$args = array(
+				'post_type' => 'zaproduct',
+				'orderby' => 'id',
+				'order'   => 'DESC',  	
+				'posts_per_page' => 3,
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'za_category',
+						'field'    => 'id',
+						'terms'    => array($category_id),
+					)
+				),
+			);
+			$the_query = new WP_Query( $args );	
+			if($the_query->have_posts()){
+				?>
+				<div class="bx_product">
+					<div class="container">
+						<div class="row">	
+							<?php 						
+							while ($the_query->have_posts()) {
+								$the_query->the_post();
+								$post_id=$the_query->post->ID;                                                       
+								$permalink=get_the_permalink($post_id);					
+								$title=get_the_title($post_id);							
+								$featured_img=get_the_post_thumbnail_url($post_id, 'full'); 
+								?>
+								<div class="col-sm-4">
+									<div class="bx_pr_item">
+										<h3 class="bx_pr_item_title"><a href="<?php echo $permalink; ?>" title="<?php echo $title; ?>"><?php echo $title; ?></a></h3>
+										<div class="bx_pr_item_img">										
+											<a href="<?php echo $permalink; ?>">
+												<figure>
+													<div style="background-image: url(<?php echo @$featured_img; ?>);background-repeat: no-repeat;background-size: cover;padding-top: calc(100% / (200 / 200))"></div>
+												</figure>						
+											</a>	
+										</div>
+										<div class="bx_pr_item_detail">
+											<a href="<?php echo $permalink; ?>">Chi tiết</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<?php	
-						}						
-						?>													
-					</div>
-					<div class="row">
-						<div class="col">
-							<div class="view_all">
-								<a href="<?php echo @$term_link; ?>" title="xemtatca">Xem tất cả</a>
+								<?php	
+							}
+							wp_reset_postdata();						
+							?>													
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="view_all">
+									<a href="<?php echo @$term_link; ?>" title="xemtatca">Xem tất cả</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+				<?php
+			}
+			$k++;		
+			?>			
 		</div>
 		<?php
-		wp_reset_postdata();
-	}
-	$source_id=get_field('hp_tax_trai_cay_say','option'); 
-	$id=$source_id[0];
-	$term_data=get_term_by( 'id',$id, 'za_category' );
-	$term_link=get_term_link( $term_data, 'za_category' );
-	$args = array(
-		'post_type' => 'zaproduct',
-		'orderby' => 'id',
-		'order'   => 'DESC',  	
-		'posts_per_page' => 3,
-		'tax_query' => array(
-			array(
-				'taxonomy' => 'za_category',
-				'field'    => 'id',
-				'terms'    => $source_id,
-			)
-		),
-	);
-	$the_query = new WP_Query( $args );			
-	if($the_query->have_posts()){
-		?>
-		<div class="box_featured_product_v2">
-			<div class="box_hp_product_wrapper_title">
-				<div class="box_hp_product_title">
-					<div>
-						<h2>
-							<?php echo $term_data->name; ?>
-						</h2>
-					</div>			
-				</div>
-			</div>	
-			<div class="clr"></div>	
-			<div class="bx_product">
-				<div class="container">
-					<div class="row">	
-						<?php 
-						while ($the_query->have_posts()) {
-							$the_query->the_post();
-							$post_id=$the_query->post->ID;                                                       
-							$permalink=get_the_permalink($post_id);					
-							$title=get_the_title($post_id);							
-							$featured_img=get_the_post_thumbnail_url($post_id, 'full'); 
-							?>
-							<div class="col-sm-4">
-								<div class="bx_pr_item">
-									<h3 class="bx_pr_item_title"><a href="<?php echo $permalink; ?>" title="<?php echo $title; ?>"><?php echo $title; ?></a></h3>
-									<div class="bx_pr_item_img">
-										<a href="<?php echo $permalink; ?>">
-											<figure>
-												<div style="background-image: url(<?php echo @$featured_img; ?>);background-repeat: no-repeat;background-size: cover;padding-top: calc(100% / (200 / 200))"></div>
-											</figure>						
-										</a>	
-									</div>
-									<div class="bx_pr_item_detail">
-										<a href="<?php echo $permalink; ?>">Chi tiết</a>
-									</div>
-								</div>
-							</div>
-							<?php	
-						}						
-						?>													
-					</div>
-					<div class="row">
-						<div class="col">
-							<div class="view_all">
-								<a href="<?php echo @$term_link; ?>" title="xemtatca">Xem tất cả</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<?php
-		wp_reset_postdata();
 	}	
-	$source_id=get_field('hp_tax_gao_dac_san','option'); 
-	$id=$source_id[0];
-	$term_data=get_term_by( 'id',$id, 'za_category' );		
-	$term_link=get_term_link( $term_data, 'za_category' );
-	$args = array(
-		'post_type' => 'zaproduct',
-		'orderby' => 'id',
-		'order'   => 'DESC',  	
-		'posts_per_page' => 3,
-		'tax_query' => array(
-			array(
-				'taxonomy' => 'za_category',
-				'field'    => 'id',
-				'terms'    => $source_id,
-			)
-		),
-	);
-	$the_query = new WP_Query( $args );			
-	if($the_query->have_posts()){
-		?>
-		<div class="box_featured_product_v3">
-			<div class="box_hp_product_wrapper_title">
-				<div class="box_hp_product_title">
-					<div>
-						<h2>
-							<?php echo $term_data->name; ?>
-						</h2>
-					</div>			
-				</div>
-			</div>	
-			<div class="clr"></div>	
-			<div class="bx_product">
-				<div class="container">
-					<div class="row">	
-						<?php 
-						while ($the_query->have_posts()) {
-							$the_query->the_post();
-							$post_id=$the_query->post->ID;                                                       
-							$permalink=get_the_permalink($post_id);					
-							$title=get_the_title($post_id);							
-							$featured_img=get_the_post_thumbnail_url($post_id, 'full'); 
-							?>
-							<div class="col-sm-4">
-								<div class="bx_pr_item">
-									<h3 class="bx_pr_item_title"><a href="<?php echo $permalink; ?>" title="<?php echo $title; ?>"><?php echo $title; ?></a></h3>
-									<div class="bx_pr_item_img">
-										<a href="<?php echo $permalink; ?>">
-											<figure>
-												<div style="background-image: url(<?php echo @$featured_img; ?>);background-repeat: no-repeat;background-size: cover;padding-top: calc(100% / (200 / 200))"></div>
-											</figure>						
-										</a>	
-									</div>
-									<div class="bx_pr_item_detail">
-										<a href="<?php echo $permalink; ?>">Chi tiết</a>
-									</div>
-								</div>
-							</div>
-							<?php	
-						}						
-						?>													
-					</div>
-					<div class="row">
-						<div class="col">
-							<div class="view_all">
-								<a href="<?php echo @$term_link; ?>" title="xemtatca">Xem tất cả</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<?php
-		wp_reset_postdata();
-	}	
-	$source_id=get_field('hp_tax_banh_keo','option'); 
-	$id=$source_id[0];
-	$term_data=get_term_by( 'id',$id, 'za_category' );		
-	$term_link=get_term_link( $term_data, 'za_category' );
-	$args = array(
-		'post_type' => 'zaproduct',
-		'orderby' => 'id',
-		'order'   => 'DESC',  	
-		'posts_per_page' => 3,
-		'tax_query' => array(
-			array(
-				'taxonomy' => 'za_category',
-				'field'    => 'id',
-				'terms'    => $source_id,
-			)
-		),
-	);
-	$the_query = new WP_Query( $args );			
-	if($the_query->have_posts()){
-		?>
-		<div class="box_featured_product_v4">
-			<div class="box_hp_product_wrapper_title">
-				<div class="box_hp_product_title">
-					<div>
-						<h2>
-							<?php echo $term_data->name; ?>
-						</h2>
-					</div>			
-				</div>
-			</div>	
-			<div class="clr"></div>	
-			<div class="bx_product">
-				<div class="container">
-					<div class="row">	
-						<?php 
-						while ($the_query->have_posts()) {
-							$the_query->the_post();
-							$post_id=$the_query->post->ID;                                                       
-							$permalink=get_the_permalink($post_id);					
-							$title=get_the_title($post_id);							
-							$featured_img=get_the_post_thumbnail_url($post_id, 'full'); 
-							?>
-							<div class="col-sm-4">
-								<div class="bx_pr_item">
-									<h3 class="bx_pr_item_title"><a href="<?php echo $permalink; ?>" title="<?php echo $title; ?>"><?php echo $title; ?></a></h3>
-									<div class="bx_pr_item_img">
-										<a href="<?php echo $permalink; ?>">
-											<figure>
-												<div style="background-image: url(<?php echo @$featured_img; ?>);background-repeat: no-repeat;background-size: cover;padding-top: calc(100% / (200 / 200))"></div>
-											</figure>						
-										</a>	
-									</div>
-									<div class="bx_pr_item_detail">
-										<a href="<?php echo $permalink; ?>">Chi tiết</a>
-									</div>
-								</div>
-							</div>
-							<?php	
-						}						
-						?>													
-					</div>
-					<div class="row">
-						<div class="col">
-							<div class="view_all">
-								<a href="<?php echo @$term_link; ?>" title="xemtatca">Xem tất cả</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<?php
-		wp_reset_postdata();
-	}
-	$source_id=get_field('hp_tax_gia_vi_dac_san','option'); 
-	$id=$source_id[0];
-	$term_data=get_term_by( 'id',$id, 'za_category' );		
-	$term_link=get_term_link( $term_data, 'za_category' );
-	$args = array(
-		'post_type' => 'zaproduct',
-		'orderby' => 'id',
-		'order'   => 'DESC',  	
-		'posts_per_page' => 3,
-		'tax_query' => array(
-			array(
-				'taxonomy' => 'za_category',
-				'field'    => 'id',
-				'terms'    => $source_id,
-			)
-		),
-	);
-	$the_query = new WP_Query( $args );			
-	if($the_query->have_posts()){
-		?>
-		<div class="box_featured_product_v5">
-			<div class="box_hp_product_wrapper_title">
-				<div class="box_hp_product_title">
-					<div>
-						<h2>
-							<?php echo $term_data->name; ?>
-						</h2>
-					</div>			
-				</div>
-			</div>	
-			<div class="clr"></div>	
-			<div class="bx_product">
-				<div class="container">
-					<div class="row">	
-						<?php 
-						while ($the_query->have_posts()) {
-							$the_query->the_post();
-							$post_id=$the_query->post->ID;                                                       
-							$permalink=get_the_permalink($post_id);					
-							$title=get_the_title($post_id);							
-							$featured_img=get_the_post_thumbnail_url($post_id, 'full'); 
-							?>
-							<div class="col-sm-4">
-								<div class="bx_pr_item">
-									<h3 class="bx_pr_item_title"><a href="<?php echo $permalink; ?>" title="<?php echo $title; ?>"><?php echo $title; ?></a></h3>
-									<div class="bx_pr_item_img">
-										<a href="<?php echo $permalink; ?>">
-											<figure>
-												<div style="background-image: url(<?php echo @$featured_img; ?>);background-repeat: no-repeat;background-size: cover;padding-top: calc(100% / (200 / 200))"></div>
-											</figure>						
-										</a>	
-									</div>
-									<div class="bx_pr_item_detail">
-										<a href="<?php echo $permalink; ?>">Chi tiết</a>
-									</div>
-								</div>
-							</div>
-							<?php	
-						}						
-						?>													
-					</div>
-					<div class="row">
-						<div class="col">
-							<div class="view_all">
-								<a href="<?php echo @$term_link; ?>" title="xemtatca">Xem tất cả</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<?php
-		wp_reset_postdata();
-	}
 	include get_template_directory() . "/block/block-partner.php";
 	$source_id=get_field('hp_tax_diem_kinh_doanh','option'); 
 	$id=$source_id[0];

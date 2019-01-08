@@ -45,7 +45,7 @@ if(is_page()){
 	}	
 	$the_query = new WP_Query( $args );  		
 }else{
-	$args = $wp_query->query;
+	$args = $wp_query->query;	
 	$args['orderby']='id';
 	$args['order']='DESC';
 	if(isset($_POST['sortname'])){
@@ -65,9 +65,9 @@ if(is_page()){
 			);
 			$args['tax_query']=array($args_tax_query);
 		}		
-	}
+	}	
 	$wp_query->query($args);
-	$the_query=$wp_query;	
+	$the_query=$wp_query;		
 }
 /* end set the_query */
 

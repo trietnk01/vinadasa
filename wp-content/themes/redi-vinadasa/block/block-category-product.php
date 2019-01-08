@@ -45,11 +45,11 @@
 				$term_link=get_term_link( $value, 'za_trade' );
 				if(in_array($value->term_id, $source_trade)){
 					?>
-					<li><input type="checkbox" name="thuonghieu[]" class="ckth" checked value="<?php echo $value->term_id; ?>" onchange="this.form.submit();" ><span class="mg"><a href="<?php echo @$term_link; ?>"><?php echo $value->name; ?></a></span></li>
+					<li><input type="checkbox" name="thuonghieu[]" class="ckth" checked value="<?php echo $value->term_id; ?>" onchange="this.form.submit();" ><span class="mg"><?php echo $value->name; ?></span></li>
 					<?php
 				}else{
 					?>
-					<li><input type="checkbox" name="thuonghieu[]" class="ckth" value="<?php echo $value->term_id; ?>" onchange="this.form.submit();" ><span class="mg"><a href="<?php echo @$term_link; ?>"><?php echo $value->name; ?></a></span></li>
+					<li><input type="checkbox" name="thuonghieu[]" class="ckth" value="<?php echo $value->term_id; ?>" onchange="this.form.submit();" ><span class="mg"><?php echo $value->name; ?></span></li>
 					<?php
 				}				
 			}
@@ -79,11 +79,11 @@
 				$term_link=get_term_link( $value, 'za_vungmien' );
 				if(in_array($value->term_id, $source_trade)){
 					?>
-					<li><input type="checkbox" name="vungmien[]" class="ckth" checked value="<?php echo $value->term_id; ?>" onchange="this.form.submit();" ><span class="mg"><a href="<?php echo @$term_link; ?>"><?php echo $value->name; ?></a></span></li>
+					<li><input type="checkbox" name="vungmien[]" class="ckth" checked value="<?php echo $value->term_id; ?>" onchange="this.form.submit();" ><span class="mg"><?php echo $value->name; ?></span></li>
 					<?php
 				}else{
 					?>
-					<li><input type="checkbox" name="vungmien[]" class="ckth" value="<?php echo $value->term_id; ?>" onchange="this.form.submit();" ><span class="mg"><a href="<?php echo @$term_link; ?>"><?php echo $value->name; ?></a></span></li>
+					<li><input type="checkbox" name="vungmien[]" class="ckth" value="<?php echo $value->term_id; ?>" onchange="this.form.submit();" ><span class="mg"><?php echo $value->name; ?></span></li>
 					<?php
 				}				
 			}
