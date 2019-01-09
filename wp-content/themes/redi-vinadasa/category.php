@@ -56,7 +56,7 @@ if($the_query->have_posts()){
 ?>
 <form name="frm_prduct_lst" method="POST">
 	<input type="hidden" name="filter_page" value="1" />
-	<input type="hidden" name="s" value="<?php echo @$_POST["s"]; ?>" />
+	<input type="hidden" name="s" value="<?php echo @$s; ?>" />
 	<div class="category_box">
 		<div class="container">
 			<div class="row">

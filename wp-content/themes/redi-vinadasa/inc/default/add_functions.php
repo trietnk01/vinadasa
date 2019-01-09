@@ -946,7 +946,7 @@ function script_footer(){
 		<div class='pan_close'>
 		 <a href='javascript:void(0);' onclick='closeFrmSearch();'><i class=\"fa fa-times\" aria-hidden=\"true\"></i></a>
 		</div>
-		<form class='frmsearcharticle' name='frm_search_article' method='GET'>
+		<form class='frmsearcharticle' name='frm_search_article' method='POST'>
 			<div class='vatimkiem'><input value='' name='s' type='search' placeholder='Tìm kiếm' class='txt_search'></div>
 			<div class='btnsearch'>
 				<a href='javascript:void(0);' onclick='document.forms[\"frm_search_article\"].submit();'><img src='".P_IMG."/search-w.svg"."' /></a>
